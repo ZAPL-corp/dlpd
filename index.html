@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Dash — Demon List</title>
+    <title>Pixel Demon List</title>
     
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
     <style>
         :root {
-            --bg-main: #f4f7f6;
-            --bg-card: #ffffff;
-            --primary-blue: #0066cc;
-            --light-blue: #e6f0fa;
-            --border-color: #d1d9e0;
-            --text-dark: #222222;
-            --text-muted: #555555;
+            /* Крутая темная палитра с неоновыми элементами */
+            --bg-card: rgba(20, 20, 25, 0.85);
+            --border-card: rgba(255, 65, 54, 0.2);
+            --border-hover: rgba(255, 65, 54, 0.5);
+            --gd-blue: #00d2ff;
+            --text-light: #ffffff;
+            --text-muted: #b3b3b3;
         }
 
         * {
@@ -27,13 +27,16 @@
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            padding: 20px 0 60px 0;
+            /* Плавный вертикальный градиент: сверху красный, снизу черный */
+            background: linear-gradient(to bottom, #4a0d0d 0%, #000000 40%, #000000 100%);
+            background-attachment: fixed;
+            color: var(--text-light);
+            padding: 40px 0 60px 0;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 0 15px;
         }
@@ -41,45 +44,51 @@
         /* Шапка */
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 20px;
+            font-size: 2.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-shadow: 0 0 15px rgba(255, 65, 54, 0.6);
+            margin-bottom: 25px;
         }
 
-        /* Простая навигация вкладками */
+        /* Навигация в стиле кнопок меню GD */
         nav {
             display: inline-flex;
-            background: #e4e7eb;
-            padding: 4px;
-            border-radius: 8px;
-            gap: 2px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            gap: 6px;
         }
 
         nav button {
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 10px 22px;
+            border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.15s ease;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
         }
 
         nav button:hover {
-            color: var(--text-dark);
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         nav button.active {
-            background: var(--bg-card);
-            color: var(--primary-blue);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: #ff4136;
+            color: var(--text-light);
+            box-shadow: 0 0 10px rgba(255, 65, 54, 0.5);
         }
 
         /* Контент вкладок */
@@ -95,15 +104,23 @@
         .list-wrapper {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .level-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 2px solid var(--border-card);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            transition: all 0.25s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+            box-shadow: 0 6px 25px rgba(255, 65, 54, 0.15);
         }
 
         .level-header {
@@ -111,84 +128,107 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
         .level-main {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 18px;
         }
 
-        .level-pos {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            background: var(--light-blue);
-            padding: 4px 10px;
-            border-radius: 4px;
-            min-width: 45px;
-            text-align: center;
+        /* Иконка сложности заменяет старый маркер позиции */
+        .level-demon-icon {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+        }
+
+        /* Голубая рамочка для номера уровня рядом с названием */
+        .level-pos-badge {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--gd-blue);
+            border: 2px solid var(--gd-blue);
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(0, 210, 255, 0.05);
+            text-shadow: 0 0 5px rgba(0, 210, 255, 0.4);
+            box-shadow: 0 0 8px rgba(0, 210, 255, 0.2);
+        }
+
+        .level-title-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
         }
 
         .level-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-dark);
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
         }
 
         .level-meta {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .level-meta span {
-            color: var(--text-dark);
-            font-weight: 500;
+            color: var(--text-light);
+            font-weight: 600;
         }
 
-        /* Простая кнопка раскрытия списка */
+        /* Кнопка раскрытия рекордов */
         .verifies-toggle {
-            background: var(--light-blue);
-            border: 1px solid rgba(0,102,204,0.2);
-            color: var(--primary-blue);
-            padding: 6px 12px;
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
         }
 
         .verifies-toggle:hover {
-            background: #d6e6f7;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Таблица прохождений */
         .verifies-container {
             display: none;
-            margin-top: 14px;
-            border-top: 1px dashed var(--border-color);
-            padding-top: 10px;
+            margin-top: 18px;
+            border-top: 2px dashed rgba(255, 255, 255, 0.1);
+            padding-top: 14px;
         }
 
         .verify-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-align: left;
         }
 
         .verify-table th {
             color: var(--text-muted);
-            font-weight: 600;
-            padding: 6px 8px;
-            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            padding: 8px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .verify-table td {
-            padding: 8px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .verify-table tr:last-child td {
@@ -196,87 +236,84 @@
         }
 
         .verify-table a {
-            color: var(--primary-blue);
+            color: var(--gd-blue);
             text-decoration: none;
+            font-weight: 700;
         }
 
         .verify-table a:hover {
             text-decoration: underline;
         }
 
-        /* Вкладка REQ */
-        .req-box {
+        /* Вкладка REQ и Рулетка */
+        .req-box, .roulette-box {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 8px;
+            border: 2px solid var(--border-card);
+            padding: 40px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        .req-box p {
+        .req-box p, .roulette-box p {
             color: var(--text-muted);
-            margin-bottom: 20px;
-            font-size: 1rem;
-            line-height: 1.5;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.6;
         }
 
-        /* Обычные классические кнопки */
+        /* Кнопка действий */
         .btn-action {
             display: inline-block;
-            background: var(--primary-blue);
+            background: #ff4136;
             color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 12px 26px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
             border: none;
             cursor: pointer;
-            transition: background 0.1s;
+            box-shadow: 0 0 10px rgba(255, 65, 54, 0.3);
+            transition: all 0.15s ease;
         }
 
         .btn-action:hover {
-            background: #0052a3;
-        }
-
-        /* Вкладка Рулетка */
-        .roulette-box {
-            text-align: center;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 8px;
+            background: #e53227;
+            box-shadow: 0 0 15px rgba(255, 65, 54, 0.6);
+            transform: translateY(-1px);
         }
 
         #roulette-screen {
-            height: 80px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 15px 0 20px 0;
-            border-radius: 4px;
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--text-light);
+            margin: 20px 0 25px 0;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Адаптивность под мобильные устройства */
+        /* Адаптивность */
         @media (max-width: 600px) {
-            body { padding: 10px 0 40px 0; }
+            body { padding: 20px 0 40px 0; }
             .level-header { flex-direction: column; align-items: flex-start; }
             .verifies-toggle { width: 100%; text-align: center; }
+            .level-main { width: 100%; }
             
-            /* Скрываем заголовки таблицы на мобилках и перестраиваем в блоки */
             .verify-table th { display: none; }
-            .verify-table tr { display: block; padding: 8px 0; border-bottom: 1px solid #eee; }
-            .verify-table td { display: block; padding: 2px 8px; border: none; }
+            .verify-table tr { display: block; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .verify-table td { display: block; padding: 4px 8px; border: none; }
             .verify-table td::before {
                 content: attr(data-label) ": ";
                 color: var(--text-muted);
-                font-weight: 500;
+                font-weight: 600;
             }
         }
     </style>
@@ -308,7 +345,7 @@
 
         <div id="tab-roulette" class="tab-content">
             <div class="roulette-box">
-                <p style="color: var(--text-muted);">Система выберет случайный демон-уровень из официального списка.</p>
+                <p>Система выберет случайный демон-уровень из официального списка.</p>
                 <div id="roulette-screen">— — —</div>
                 <button class="btn-action" onclick="spinRoulette()">Выбрать случайный уровень</button>
             </div>
@@ -319,7 +356,15 @@
         let globalLevels = [];
         let globalVerifies = [];
 
-        // Переключение вкладок
+        // Массив иконок сложностей по значениям difficulty (от 1 до 5)
+        const difficultyIcons = {
+            1: "https://pixeldash.ps.fhgdps.com/browser/assets/demon/easy.png",
+            2: "https://pixeldash.ps.fhgdps.com/browser/assets/demon/medium.png",
+            3: "https://pixeldash.ps.fhgdps.com/browser/assets/demon/demon.png",
+            4: "https://pixeldash.ps.fhgdps.com/browser/assets/demon/insane.png",
+            5: "https://pixeldash.ps.fhgdps.com/browser/assets/demon/extreme.png"
+        };
+
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
@@ -328,7 +373,6 @@
             event.target.classList.add('active');
         }
 
-        // Загрузка JSON данных
         async function loadListData() {
             try {
                 const listResponse = await fetch('data/list.json');
@@ -343,11 +387,10 @@
 
                 renderList();
             } catch (error) {
-                document.getElementById('demon-list').innerHTML = `<p style="color:red; text-align:center; padding:20px;">Ошибка загрузки данных из папки data/</p>`;
+                document.getElementById('demon-list').innerHTML = `<p style="color:#ff4136; text-align:center; padding:20px; font-weight:700;">Ошибка загрузки данных из папки data/</p>`;
             }
         }
 
-        // Отрисовка списка уровней
         function renderList() {
             const container = document.getElementById('demon-list');
             container.innerHTML = '';
@@ -355,13 +398,15 @@
             globalLevels.forEach((level, index) => {
                 const levelVerifies = globalVerifies.filter(v => v.level_id === level.level_id);
 
+                // Получаем нужную иконку или дефолтную, если difficulty не указан или некорректен
+                const iconUrl = difficultyIcons[level.difficulty] || difficultyIcons[3];
+
                 let verifiesHtml = '';
                 if(levelVerifies.length > 0) {
                     verifiesHtml = `
                         <button class="verifies-toggle" onclick="toggleVerifies(event, '${level.level_id}')">Рекорды (${levelVerifies.length})</button>
                         <div id="verifies-${level.level_id}" class="verifies-container">
                             <table class="verify-table">
-                                stroke
                                 <thead>
                                     <tr>
                                         <th>Игрок</th>
@@ -373,7 +418,7 @@
                                 <tbody>
                                     ${levelVerifies.map(v => `
                                         <tr>
-                                            <td data-label="Игрок" style="font-weight:600;">${v.username}</td>
+                                            <td data-label="Игрок" style="font-weight:700; color: #fff;">${v.username}</td>
                                             <td data-label="Устройство">${v.device}</td>
                                             <td data-label="FPS">${v.fps}</td>
                                             <td data-label="Видео"><a href="${v.video_url}" target="_blank">YouTube ↗</a></td>
@@ -384,7 +429,7 @@
                         </div>
                     `;
                 } else {
-                    verifiesHtml = `<button class="verifies-toggle" style="opacity:0.4; cursor:default; background:#f0f0f0; color:#aaa; border-color:#ddd;">Нет рекордов</button>`;
+                    verifiesHtml = `<button class="verifies-toggle" style="opacity:0.3; cursor:default; background:transparent; color:#666; border-color:rgba(255,255,255,0.05);">Нет рекордов</button>`;
                 }
 
                 const card = document.createElement('div');
@@ -392,11 +437,14 @@
                 card.innerHTML = `
                     <div class="level-header">
                         <div class="level-main">
-                            <div class="level-pos">#${index + 1}</div>
+                            <img src="${iconUrl}" alt="Demon" class="level-demon-icon">
                             <div>
-                                <div class="level-title">${level.name}</div>
+                                <div class="level-title-block">
+                                    <span class="level-pos-badge">#${index + 1}</span>
+                                    <div class="level-title">${level.name}</div>
+                                </div>
                                 <div class="level-meta">Создатель: <span>${level.creator}</span> | ID: <span>${level.level_id}</span></div>
-                                <div class="level-meta" style="font-size:0.8rem;">Автор верификации: <span>${level.publisher}</span></div>
+                                <div class="level-meta" style="font-size:0.85rem;">Автор верификации: <span>${level.publisher}</span></div>
                             </div>
                         </div>
                         <div>
@@ -408,7 +456,6 @@
             });
         }
 
-        // Показать/скрыть таблицу рекордов
         function toggleVerifies(event, id) {
             const el = document.getElementById(`verifies-${id}`);
             if(el.style.display === 'block') {
@@ -418,7 +465,6 @@
             }
         }
 
-        // Функция рулетки
         function spinRoulette() {
             if(globalLevels.length === 0) {
                 document.getElementById('roulette-screen').innerText = "Список пуст!";
@@ -435,7 +481,7 @@
                 if(counter > 12) {
                     clearInterval(interval);
                     const finalLevel = globalLevels[Math.floor(Math.random() * globalLevels.length)];
-                    screen.innerHTML = `<span style="color:var(--primary-blue); font-weight:700;">${finalLevel.name}</span> &nbsp;(ID: ${finalLevel.level_id})`;
+                    screen.innerHTML = `<span style="color:var(--gd-blue); font-weight:800;">${finalLevel.name}</span> &nbsp;(ID: ${finalLevel.level_id})`;
                 }
             }, 80);
         }
