@@ -1,34 +1,10 @@
 [
   {
     "id": 1,
-    "name": "Silent Demise",
-    "level_id": "110",
-    "creator": "AhhardGD",
-    "publisher": "AhhardGD",
-    "difficulty": 3
-  },
-  {
-    "id": 2,
-    "name": "segodnua",
-    "level_id": "118",
-    "creator": "AhardGD",
-    "publisher": "AhardGD",
-    "difficulty": 3
-  },
-  {
-    "id": 3,
-    "name": "Shilense circles",
-    "level_id": "117",
-    "creator": "AhardGD",
-    "publisher": "AhardGD",
+    "name": "Gretel of Obbiten",
+    "level_id": "5",
+    "creator": "FloatyGames",
+    "publisher": "FloatyGames",
     "difficulty": 2
-  },
-  {
-    "id": 4,
-    "name": "I see",
-    "level_id": "105",
-    "creator": "Levkaaa",
-    "publisher": "Levkaaa",
-    "difficulty": 3
   }
 ]
